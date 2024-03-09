@@ -18,7 +18,18 @@
 									<p>Dashboard</p>
 								</a>
 							</li>
-							
+							<li class="nav-item">
+								<a href="{{route('category.index')}}" class="nav-link">
+									<i class="nav-icon fas fa-file-alt"></i>
+									<p>Category</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ route('sub-categories.index') }}" class="nav-link">
+									<i class="nav-icon fas fa-file-alt"></i>
+									<p>Sub Category</p>
+								</a>
+							</li>
 						</ul>
 					</nav>
 					<!-- /.sidebar-menu -->
