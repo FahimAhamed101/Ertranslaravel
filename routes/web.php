@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\admin\SubCategoryControlle;
 use App\Http\Controllers\Admin\TempImagesController;
+use App\Http\Controllers\admin\BrandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +48,12 @@ Route::group(['prefix' => 'admin'], function () {
       Route::get('/sub-categories/{subCategory}/edit', [SubCategoryControlle::class, 'edit'])->name('sub-categories.edit');
       Route::put('/sub-categories/{subCategory}', [SubCategoryControlle::class, 'update'])->name('sub-categories.update');
       Route::delete('/sub-categories/{subCategory}', [SubCategoryControlle::class, 'destroy'])->name('sub-categories.destroy');
-
+      Route::get('/brands', [BrandController::class, 'index'])->name('brand.index');
+      Route::get('/brands/create', [BrandController::class, 'create'])->name('brand.create');
+      Route::post('/brands', [BrandController::class, 'store'])->name('brand.store');
+      Route::get('/brands/{brands}/edit', [BrandController::class, 'edit'])->name('brand.edit');
+      Route::put('/brands/{brands}', [BrandController::class, 'update'])->name('brand.update');
+      Route::delete('/brands/{brands}', [BrandController::class, 'destroy'])->name('brand.destroy');
 
       Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
 
