@@ -12,6 +12,12 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\DiscountCodeController;
+use App\Http\Controllers\admin\OrderController;
+use App\Http\Controllers\admin\PageController;
+use App\Http\Controllers\admin\UserController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,6 +108,17 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/coupon/{coupon}/edit',[DiscountCodeController::class,'edit'])->name('coupon.edit');
         Route::put('/coupon/{coupon}',[DiscountCodeController::class,'update'])->name('coupon.update');
         Route::delete('/coupon/{coupon}',[DiscountCodeController::class,'destroy'])->name('coupon.delete');
+
+//Order Routes
+Route::get('/orders',[OrderController::class,'index'])->name('order.index');
+Route::get('/orders/{id}',[OrderController::class,'detail'])->name('order.detail');
+Route::post('/order/change-status/{id}',[OrderController::class,'changeOrderStatus'])->name('order.changeOrderStatusForm');
+Route::post('/order/send-email/{id}',[OrderController::class,'sendInvoiceemail'])->name('order.sendInvoiceemail');
+
+   
+
+
+
         });
    
       
