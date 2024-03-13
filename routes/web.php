@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
+use App\Http\Controllers\admin\ShippingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,7 +75,12 @@ Route::group(['prefix' => 'admin'], function () {
           Route::delete('/product-images', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
           Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('productsubcategories.index');
   
-
+     //Shipping routes
+     Route::get('/shipping/create',[ShippingController::class,'create'])->name('shipping.create');
+     Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
+     Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
+     Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
+     Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.destroy');
 
       Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
 
