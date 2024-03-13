@@ -38,6 +38,19 @@
 									<p>Brands</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{ route('product.index') }}" class="nav-link">
+									<i class="nav-icon fas fa-tag"></i>
+									<p>Products</p>
+								</a>
+							</li>
+
+                            <li class="nav-item">
+								<a href="{{ route('product.productRating') }}" class="nav-link">
+									<i class="nav-icon fas fa-tag"></i>
+									<p>Product Rating</p>
+								</a>
+							</li>
 						</ul>
 					</nav>
 					<!-- /.sidebar-menu -->

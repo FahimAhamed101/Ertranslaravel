@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\admin\SubCategoryControlle;
 use App\Http\Controllers\Admin\TempImagesController;
 use App\Http\Controllers\admin\BrandController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\admin\ProductSubCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,10 +25,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+ Route::get('/product/{slug}',['product'])->name('front.product');
 Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['middleware' => 'admin.guest'], function () {
+
         Route::get('/login', [AdminLoginController::class, 'index'])->name('admin.login');
         Route::post('/authenticate', [AdminLoginController::class, 'authenticate'])->name('admin.authenticate');
     });
@@ -54,6 +58,23 @@ Route::group(['prefix' => 'admin'], function () {
       Route::get('/brands/{brands}/edit', [BrandController::class, 'edit'])->name('brand.edit');
       Route::put('/brands/{brands}', [BrandController::class, 'update'])->name('brand.update');
       Route::delete('/brands/{brands}', [BrandController::class, 'destroy'])->name('brand.destroy');
+          //Product Routes
+          Route::get('/products', [ProductController::class, 'index'])->name('product.index');
+          Route::get('/products/create', [ProductController::class, 'create'])->name('product.create');
+          Route::post('/products', [ProductController::class, 'store'])->name('product.store');
+          Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+          Route::put('/products/{product}', [ProductController::class, 'update'])->name('product.update');
+          Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+          Route::get('/get-products',[ProductController::class,'getProducts'])->name('product.getProducts');
+          Route::get('/ratings', [ProductController::class, 'productRating'])->name('product.productRating');
+          Route::get('/change-rating-status', [ProductController::class, 'changeRatingStatus'])->name('product.changeRatingStatus');
+  
+  
+          Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
+          Route::delete('/product-images', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
+          Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('productsubcategories.index');
+  
+
 
       Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
 
