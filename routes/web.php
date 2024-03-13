@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ShippingController;
+use App\Http\Controllers\admin\DiscountCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,29 +75,39 @@ Route::group(['prefix' => 'admin'], function () {
           Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
           Route::delete('/product-images', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
           Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('productsubcategories.index');
-  
-     //Shipping routes
+    
+          Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
+
+          Route::get('/getslug', function (Request $request) {
+              $slug = '';
+              if (!empty($request->title)) {
+                  $slug = Str::slug($request->title);
+              }
+              return response()->json([
+                  'status' => true,
+                  'slug' => $slug,
+              ]);
+          })->name('getSlug');
+    
+      //Shipping routes
      Route::get('/shipping/create',[ShippingController::class,'create'])->name('shipping.create');
      Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
      Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
      Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
      Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.destroy');
-
-      Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
-
-      Route::get('/getslug', function (Request $request) {
-          $slug = '';
-          if (!empty($request->title)) {
-              $slug = Str::slug($request->title);
-          }
-          return response()->json([
-              'status' => true,
-              'slug' => $slug,
-          ]);
-      })->name('getSlug');
-
-
-    });
+        //Coupon code Routes
+        Route::get('/coupon',[DiscountCodeController::class,'index'])->name('coupon.index');
+        Route::get('/coupon/create',[DiscountCodeController::class,'create'])->name('coupon.create');
+        Route::post('/coupon',[DiscountCodeController::class,'store'])->name('coupon.store');
+        Route::get('/coupon/{coupon}/edit',[DiscountCodeController::class,'edit'])->name('coupon.edit');
+        Route::put('/coupon/{coupon}',[DiscountCodeController::class,'update'])->name('coupon.update');
+        Route::delete('/coupon/{coupon}',[DiscountCodeController::class,'destroy'])->name('coupon.delete');
+        });
+   
+      
+      
+      
+    
 
   
    

@@ -58,6 +58,12 @@
 									<p>Shipping</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{ route('coupon.index') }}" class="nav-link">
+									<i class="nav-icon  fa fa-percent" aria-hidden="true"></i>
+									<p>Discount</p>
+								</a>
+							</li>
 						</ul>
 					</nav>
 					<!-- /.sidebar-menu -->
