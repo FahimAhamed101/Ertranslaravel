@@ -16,7 +16,7 @@ use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\UserController;
 
-
+use App\Http\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +29,7 @@ use App\Http\Controllers\admin\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontController::class, 'index'])->name('front.index');
 
  Route::get('/product/{slug}',['product'])->name('front.product');
 Route::group(['prefix' => 'admin'], function () {
