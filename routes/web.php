@@ -115,9 +115,22 @@ Route::get('/orders/{id}',[OrderController::class,'detail'])->name('order.detail
 Route::post('/order/change-status/{id}',[OrderController::class,'changeOrderStatus'])->name('order.changeOrderStatusForm');
 Route::post('/order/send-email/{id}',[OrderController::class,'sendInvoiceemail'])->name('order.sendInvoiceemail');
 
-   
+    //Users Routes
+    Route::get('/users',[UserController::class,'index'])->name('user.index');
+    Route::get('/user/create',[UserController::class,'create'])->name('user.create');
+    Route::post('/user',[UserController::class,'store'])->name('user.store');
+    Route::get('/user/{userId}/edit',[UserController::class,'edit'])->name('user.edit');
+    Route::put('/user/{userId}',[UserController::class,'update'])->name('user.update');
+    Route::delete('/user/{user}',[UserController::class,'destroy'])->name('user.delete');
 
 
+    //Pages Routes
+    Route::get('/pages',[PageController::class,'index'])->name('page.index');
+    Route::get('/page/create',[PageController::class,'create'])->name('page.create');
+    Route::post('/page',[PageController::class,'store'])->name('page.store');
+    Route::get('/page/{page}/edit',[PageController::class,'edit'])->name('page.edit');
+    Route::put('/page/{page}',[PageController::class,'update'])->name('page.update');
+    Route::delete('/page/{page}',[PageController::class,'destroy'])->name('page.delete');
 
         });
    
