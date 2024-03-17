@@ -17,7 +17,7 @@ use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\UserController;
 
 use App\Http\Controllers\FrontController;
-
+use App\Http\Controllers\ShopController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +31,7 @@ use App\Http\Controllers\FrontController;
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 
- Route::get('/product/{slug}',['product'])->name('front.product');
+Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
 Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['middleware' => 'admin.guest'], function () {

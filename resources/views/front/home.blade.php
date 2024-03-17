@@ -171,6 +171,7 @@
         @endif
         <!--end Featured product-->
         <!--start New Arrivals-->
+        @if (count($latestProducts) > 0)
         <section class="py-4">
             <div class="container">
                 <div class="d-flex align-items-center">
@@ -178,8 +179,13 @@
                     <a href="javascript:;" class="btn btn-light ms-auto rounded-0">View All<i class='bx bx-chevron-right'></i></a>
                 </div>
                 <hr/>
+
+
                 <div class="product-grid">
-                    <div class="new-arrivals owl-carousel owl-theme">
+
+
+                    <div class="new-arrivals owl-carousel owl-theme">  
+                        @foreach ($latestProducts as $latestProduct)
                         <div class="item">
                             <div class="card rounded-0 product-card">
                                 <div class="card-header bg-transparent border-bottom-0">
@@ -190,8 +196,18 @@
                                         </a>
                                     </div>
                                 </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/09.png" class="card-img-top" alt="...">
+                              
+                                @php
+                                $productImage = $latestProduct->Product_Image->first();
+                            @endphp
+                                <a href="{{ route('front.product', $latestProduct->slug) }}">
+
+                                    @if ($productImage != '')
+                                    <img class="card-img-top" src="{{ asset('uploads/product/small/' . $productImage->image) }}" alt="">
+                                    @else
+                                    <img class="card-img-top" src="{{ asset('admin-assets/img/no-image.png') }}"
+                                    alt="">
+                                    @endif
                                 </a>
                                 <div class="card-body">
                                     <div class="product-info">
@@ -202,8 +218,8 @@
                                             <h6 class="product-name mb-2">Product Short Name</h6>
                                         </a>
                                         <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
+                                            <div class="mb-1 product-price">    @if ($latestProduct->compare_price > 0) <span class="me-1 text-decoration-line-through">${{ $latestProduct->compare_price }}</span>  @endif
+                                                <span class="text-white fs-5">${{ $latestProduct->price }}</span>
                                             </div>
                                             <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
                                             </div>
@@ -217,417 +233,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/10.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/11.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>4.9</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/12.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/13.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>3.9</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/14.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/15.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/16.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/17.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>4.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/18.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/19.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>4.5</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card">
-                                <div class="card-header bg-transparent border-bottom-0">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="javascript:;">
-                                            <div class="product-wishlist"> <i class='bx bx-heart'></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="product-details.html">
-                                    <img src="assets/images/products/20.png" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="product-info">
-                                        <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
-                                        </a>
-                                        <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
-                                            </div>
-                                            <div class="cursor-pointer ms-auto">	<span>5.0</span>  <i class="bx bxs-star text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-action mt-2">
-                                            <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                     
+                   
                     </div>
                 </div>
             </div>
         </section>
+        @endif
         <!--end New Arrivals-->
         <!--start Advertise banners-->
         <section class="py-4">
@@ -694,142 +307,31 @@
                     <a href="shop-categories.html" class="btn btn-light ms-auto rounded-0">View All<i class='bx bx-chevron-right'></i></a>
                 </div>
                 <hr/>
+                @if (count(getCategories()) > 0)
+              
                 <div class="product-grid">
                     <div class="browse-category owl-carousel owl-theme">
+  @foreach (getCategories() as $category)
                         <div class="item">
                             <div class="card rounded-0 product-card border">
                                 <div class="card-body">
-                                    <img src="assets/images/categories/01.png" class="img-fluid" alt="...">
+                                    @if ($category->image != '')
+                                    <img src="{{ asset('uploads/category/thumbnail/' . $category->image) }}" class="img-fluid" alt="...">
+                                    @else
+                                    <img src="{{ asset('admin-assets/img/no-image.png') }}" alt=""
+                                        class="img-fluid">
+                                @endif
                                 </div>
                                 <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Fashion</h6>
-                                    <p class="mb-0 font-12 text-uppercase">10 Products</p>
+                                    <h6 class="mb-1 text-uppercase">{{ $category->name }}</h6>
+                                    <p class="mb-0 font-12 text-uppercase"> Products</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/02.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Watches</h6>
-                                    <p class="mb-0 font-12 text-uppercase">8 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/03.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Shoes</h6>
-                                    <p class="mb-0 font-12 text-uppercase">14 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/04.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Bags</h6>
-                                    <p class="mb-0 font-12 text-uppercase">6 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/05.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Electronis</h6>
-                                    <p class="mb-0 font-12 text-uppercase">6 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/06.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Headphones</h6>
-                                    <p class="mb-0 font-12 text-uppercase">5 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/07.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Furniture</h6>
-                                    <p class="mb-0 font-12 text-uppercase">20 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/08.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Jewelry</h6>
-                                    <p class="mb-0 font-12 text-uppercase">16 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/09.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Sports</h6>
-                                    <p class="mb-0 font-12 text-uppercase">28 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/10.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Vegetable</h6>
-                                    <p class="mb-0 font-12 text-uppercase">15 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/11.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Medical</h6>
-                                    <p class="mb-0 font-12 text-uppercase">24 Products</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 product-card border">
-                                <div class="card-body">
-                                    <img src="assets/images/categories/12.png" class="img-fluid" alt="...">
-                                </div>
-                                <div class="card-footer text-center">
-                                    <h6 class="mb-1 text-uppercase">Sunglasses</h6>
-                                    <p class="mb-0 font-12 text-uppercase">18 Products</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
+                @endif
             </div>
         </section>
         <!--end categories-->
