@@ -18,6 +18,8 @@ use App\Http\Controllers\admin\UserController;
 
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,8 +32,38 @@ use App\Http\Controllers\ShopController;
 */
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
-
+Route::get('/shop/{categorySlug?}/{subCategoryslug?}',[ShopController::class,'index'])->name('front.shop');
 Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
+Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
+Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.cartToCart');
+Route::post('/update-cart',[CartController::class,'updateCart'])->name('front.updateCart');
+Route::post('/delete-cart',[CartController::class,'deleteItem'])->name('front.deleteProduct.cart');
+Route::post('/add-to-wishlist',[FrontController::class,'addToWishList'])->name('fornt.addToWishList');
+Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('fornt.forgotPassword');
+Route::group(['prefix' => 'account'], function () {
+
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/register',[AuthController::class,'register'])->name('account.register');
+        Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.process.register');
+        Route::get('/login',[AuthController::class,'login'])->name('account.login');
+        Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
+        Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
+
+    });
+
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
+        Route::post('/update-profile',[AuthController::class,'updateProfile'])->name('account.updateProfile');
+        Route::post('/update-address',[AuthController::class,'updateAddress'])->name('account.updateAddress');
+        Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
+        Route::get('/my-orders',[AuthController::class,'order'])->name('account.order');
+        Route::get('/wishlist',[AuthController::class,'wishlist'])->name('account.wishlist');
+        Route::post('/remove-product-from-wishlist',[AuthController::class,'removeProductfromWishlist'])->name('account.removeProductfromWishlist');
+        Route::get('/order-detail/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
+        Route::get('/change-password',[AuthController::class,'changePasswordPage'])->name('account.changePassword');
+        Route::post('/process-change-password',[AuthController::class,'changePassword'])->name('account.processChangePassword');
+    });
+});
 Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['middleware' => 'admin.guest'], function () {

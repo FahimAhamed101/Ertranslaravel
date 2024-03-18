@@ -59,6 +59,11 @@
 							</li>
 							<li class="nav-item">	<a class="nav-link" href="javascript:;">Help & FAQs</a>
 							</li>
+							@if (Auth::user())
+							<a href="{{ route('account.profile') }}" class="nav-link text-dark">My Account</a>
+						@else
+							<a href="{{ route('account.login') }}" class="nav-link text-dark">Login / Register</a>
+						@endif
 						</ul>
 						<ul class="navbar-nav">
 							<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">USD</a>
@@ -681,16 +686,15 @@
             }
         });
 
-        //code for Add to Cart
-        function addToCart(id){
+		function addToCart(id){
             $.ajax({
-                url: "",
+                url: "{{ route('front.cartToCart') }}",
                 type: "post",
                 data: {id:id},
                 dataType: "json",
                 success: function (response) {
                     if (response.status == true) {
-                        window.location.href="";
+                        window.location.href="{{ route('front.cart') }}";
                     } else {
                         alert(response.message);
                     }
@@ -702,7 +706,7 @@
         //code for Add to Wishlist
         function addToWishList(id){
             $.ajax({
-                url: "",
+                url: "{{ route('fornt.addToWishList') }}",
                 type: "post",
                 data: {id:id},
                 dataType: "json",
@@ -711,12 +715,11 @@
                         $("#wishlistModal .modal-body").html(response.message);
                         $("#wishlistModal").modal('show');
                     } else {
-                        window.location.href="";
+                        window.location.href="{{ route('account.login') }}";
                     }
                 }
             });
         }
-
 
     </script>
     @yield('customJs')
