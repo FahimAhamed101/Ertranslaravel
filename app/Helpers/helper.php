@@ -7,7 +7,7 @@ use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product_Image;
 use Illuminate\Support\Facades\Mail;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 function getCategories(){
     return Category::orderby('name','ASC')
     ->where('status',1)
@@ -19,6 +19,14 @@ function getCategories(){
 function getProductImage($productId){
     return Product_Image::where('product_id',$productId)->first();
 }
+
+function getcart($cartContent){
+
+    $cartContent = Cart::content();
+    session(['url.intended' => url()->previous()]);
+    return  $cartContent;
+}
+
 function orderEmail($orderId, $userType="customer"){
     $order = Order::where('id',$orderId)->with('items')->first();
 

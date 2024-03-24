@@ -40,6 +40,13 @@ Route::post('/update-cart',[CartController::class,'updateCart'])->name('front.up
 Route::post('/delete-cart',[CartController::class,'deleteItem'])->name('front.deleteProduct.cart');
 Route::post('/add-to-wishlist',[FrontController::class,'addToWishList'])->name('fornt.addToWishList');
 Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('fornt.forgotPassword');
+
+Route::get('/checkout',[CartController::class,'checkout'])->name('fornt.checkout');
+Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('fornt.processcheckout');
+Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->name('fornt.getOrderSummery');
+Route::post('/apply-discount',[CartController::class,'applyDiscount'])->name('fornt.applyDiscount');
+Route::post('/remove-discount',[CartController::class,'removeCoupon'])->name('fornt.removeCoupon');
+Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thanks');
 Route::group(['prefix' => 'account'], function () {
 
     Route::group(['middleware' => 'guest'], function () {

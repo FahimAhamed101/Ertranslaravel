@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -14,7 +14,9 @@ class ShopController extends Controller
         $categorySelected = '';
         $subCategorySelected = '';
         $brandsArray = [];
+        $cartContent = Cart::content();
 
+        session(['url.intended' => url()->previous()]);
         $categories = Category::orderBy('name','ASC')->with('sub_category')->where('status',1)->get();
         $brands = brand::orderBy('name','ASC')->where('status',1)->get();
         $products = Product::where('status',1);
@@ -66,7 +68,7 @@ class ShopController extends Controller
 
         $products = $products->paginate(6);
 
-        return view('front.shop',compact('categories','brands','products','categorySelected','subCategorySelected','brandsArray','priceMin','priceMax','short'));
+        return view('front.shop',compact('categories','cartContent','brands','products','categorySelected','subCategorySelected','brandsArray','priceMin','priceMax','short'));
     }
 
 
@@ -78,7 +80,13 @@ class ShopController extends Controller
         if($product == null){
             abort(404);
         }
+        $cartContent = Cart::content();
+        $color = $product->product_color;
+        $product_color = explode(',',$color);
 
+        $size = $product->product_size;
+        $product_size = explode(',',$size);
+        session(['url.intended' => url()->previous()]);
         //Fetch Related Product
         $relatedProducts = [];
         if($product->related_products != ''){
@@ -96,6 +104,6 @@ class ShopController extends Controller
             $avg_rating_per = ($avg_rating*100)/5;
         }
 
-        return view('front.product',compact('product','relatedProducts', 'avg_rating','avg_rating_per'));
+        return view('front.product',compact('product','product_color','product_size','cartContent','relatedProducts', 'avg_rating','avg_rating_per'));
     }
 }

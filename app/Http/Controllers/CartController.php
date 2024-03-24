@@ -40,7 +40,7 @@ class CartController extends Controller
             }
 
             if ($productAlreadyExist == false) {
-                Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_image)) ? $product->product_image->first() : '']);
+                Cart::add($product->id, $product->title, 1,$product->price,$product->product_size, ['productImage' => (!empty($product->product_image)) ? $product->product_image->first() : '']);
 
                 $status = true;
                 $message = '<strong>' . $product->title . '</strong> Added in Your Cart Successfully.';
@@ -308,7 +308,7 @@ class CartController extends Controller
             }
 
             //Send Order Email
-            orderEmail($order->id,'customer');
+            //orderEmail($order->id,'customer');
 
             session()->flash('success', 'You Have successfully placed your order');
 

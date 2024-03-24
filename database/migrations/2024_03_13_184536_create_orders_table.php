@@ -36,7 +36,7 @@ return new class extends Migration
             $table->enum('payment_status',['paid','not paid'])->default('not paid');
             $table->enum('status',['pending','shipped','delivered'])->default('pending');
             $table->timestamp('shipped_date')->nullable();
-        
+            $table->timestamps();
         });
     }
 

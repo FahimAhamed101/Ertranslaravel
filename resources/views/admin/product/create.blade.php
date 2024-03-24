@@ -226,6 +226,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="mb-3">
+                    <label for="inputProductTitle" class="form-label">Product Size</label>
+                    <input type="text" name="product_size" class="form-control visually-hidden" data-role="tagsinput" value="Small">
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputProductTitle" class="form-label">Product Color</label>
+                    <input type="text" name="product_color" class="form-control visually-hidden" data-role="tagsinput" value="Red">
+                </div>
 
                 <div class="pb-5 pt-3">
                     <button type="submit" class="btn btn-primary">Create</button>

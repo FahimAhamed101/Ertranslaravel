@@ -95,7 +95,21 @@
 														<option>5</option>
 													</select>
 												</div>
+												
 												<div class="col">
+													@if ($product->product_size == null)
+													@else
+														<div class="attr-detail attr-size mb-30">
+															<strong class="mr-10" style="width: 50px">Size : </strong>
+															<select class="form-control unicase-form-controle" id="dsize">
+																<option selected="" disabled="">--Choose Size--</option>
+																@foreach ($product_size as $product_size )
+																	<option value="{{ $product_size  }}">{{ ucwords( $product_size ) }}</option> {{--ucwords use than ,  --}}
+																</div>
+																@endforeach
+															</select>
+														</div>
+													@endif
 													<label class="form-label">Size</label>
 													<select class="form-select form-select-sm">
 														<option>S</option>
@@ -106,6 +120,18 @@
 													</select>
 												</div>
 												<div class="col">
+													@if ($product->product_color == null)
+													@else
+														<div class="attr-detail attr-size mb-30">
+															<strong class="mr-10" style="width: 55px">Color : </strong>
+															<select class="form-control unicase-form-controle" id="dcolor">
+																<option selected="" disabled="">--Choose Color--</option>
+																@foreach ($product_color as $color)
+																	<option value="{{ $color }}">{{ ucwords($color) }}</option> {{--ucwords use than ,  --}}
+																@endforeach
+															</select>
+														</div>
+													@endif
 													<label class="form-label">Colors</label>
 													<div class="color-indigators d-flex align-items-center gap-2">
 														<div class="color-indigator-item bg-primary"></div>

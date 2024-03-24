@@ -11,17 +11,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 class FrontController extends Controller
 {
     public function index()
     {
+
+        $cartContent = Cart::content();
+
+        session(['url.intended' => url()->previous()]);
         $featuredProducts = Product::where('is_featured','Yes')->orderBy('id','DESC')->where('status',1)->take(4)->get();
         $latestProducts = Product::orderBy('id','DESC')->where('status',1)->take(8)->get();
-        return view('front.home',compact('featuredProducts','latestProducts'));
+        return view('front.home',compact('featuredProducts','latestProducts','cartContent'));
     }
 
+    public function layout()
+    {
 
+        $cartContent = Cart::content();
+
+        session(['url.intended' => url()->previous()]);
+        $featuredProducts = Product::where('is_featured','Yes')->orderBy('id','DESC')->where('status',1)->take(4)->get();
+        $latestProducts = Product::orderBy('id','DESC')->where('status',1)->take(8)->get();
+        return view('front.layouts.app',compact('featuredProducts','latestProducts','cartContent'));
+    }
     public function addToWishList(Request $request){
         if (Auth::check() == false){
 

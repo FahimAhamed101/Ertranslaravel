@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreignId('brand_id')->nullable()->constrained()->onDelete('cascade');
             $table->enum('is_featured',['Yes','No'])->default('No');
             $table->string('sku');
+            $table->string('product_size')->nullable();
+            $table->string('product_color')->nullable();
             $table->string('barcode')->nullable();
             $table->enum('track_qty',['Yes','No'])->default('Yes');
             $table->integer('qty')->nullable();

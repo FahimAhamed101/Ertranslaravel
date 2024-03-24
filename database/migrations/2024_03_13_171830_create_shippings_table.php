@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
             $table->string('country_id');
-            $table->double('amount',10,2);
+            $table->double('amount',10,2)->nullable();
             $table->timestamps();
         });
     }

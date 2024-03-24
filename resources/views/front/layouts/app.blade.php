@@ -150,8 +150,8 @@
 										</li>
 										<li class="nav-item"><a href="wishlist.html" class="nav-link cart-link"><i class='bx bx-heart'></i></a>
 										</li>
-										<li class="nav-item dropdown dropdown-large">
-											<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link" data-bs-toggle="dropdown">	<span class="alert-count">8</span>
+										<li class="nav-item">
+											<a href="#" class=" position-relative cart-link" >
 												<i class='bx bx-shopping-bag'></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-end">

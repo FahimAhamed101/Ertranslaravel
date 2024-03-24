@@ -50,6 +50,8 @@ class ProductController extends Controller
     {
         $rules = [
             'title' => ['required', 'max:255'],
+            'product_size' => ['required', 'numeric'],
+            'product_color' => ['required', 'max:255'],
             'slug' => ['required', 'unique:products', 'max:255'],
             'price' => ['required', 'numeric'],
             'sku' => ['required', 'unique:products'],
@@ -66,6 +68,8 @@ class ProductController extends Controller
             $product = new Product();
             $product->title = $request->title;
             $product->slug = $request->slug;
+            $product ->product_size = $request->product_size;
+            $product ->product_color = $request->product_color;
             $product->short_description = $request->short_description;
             $product->description = $request->description;
             $product->shipping_returns = $request->shipping_returns;
@@ -176,6 +180,8 @@ class ProductController extends Controller
 
         $rules = [
             'title' => ['required', 'max:255'],
+            'product_size' => ['required', 'numeric'],
+            'product_color' => ['required', 'max:255'],
             'slug' => ['required', 'max:255', 'unique:products,slug,' . $product->id . ',id'],
             'price' => ['required', 'numeric'],
             'sku' => ['required', 'max:255', 'unique:products,sku,' . $product->id . ',id'],
@@ -198,6 +204,8 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->compare_price = $request->compare_price;
             $product->sku = $request->sku;
+            $product ->product_size = $request->product_size;
+            $product ->product_color = $request->product_color;
             $product->barcode = $request->barcode;
             $product->track_qty = $request->track_qty;
             $product->qty = $request->qty;
