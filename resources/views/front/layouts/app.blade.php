@@ -686,21 +686,7 @@
             }
         });
 
-		function addToCart(id){
-            $.ajax({
-                url: "{{ route('front.cartToCart') }}",
-                type: "post",
-                data: {id:id},
-                dataType: "json",
-                success: function (response) {
-                    if (response.status == true) {
-                        window.location.href="{{ route('front.cart') }}";
-                    } else {
-                        alert(response.message);
-                    }
-                }
-            });
-        }
+		
 
 
         //code for Add to Wishlist

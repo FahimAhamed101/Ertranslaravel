@@ -17,57 +17,37 @@ use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request)
+    public function addToCart(Request $request, $id)
     {
-        $product = Product::with('product_image')->find($request->id);
-
-        if ($product == null) {
-            return response()->json([
-                'status' => false,
-                'message' => "Record not Found",
-            ]);
-        }
-
-        if (Cart::count() > 0) {
-            // echo "Product Already in Cart";
-            $cartContent = Cart::content();
-            $productAlreadyExist = false;
-
-            foreach ($cartContent as $item) {
-                if ($item->id == $product->id) {
-                    $productAlreadyExist = true;
-                }
-            }
-
-            if ($productAlreadyExist == false) {
-                Cart::add($product->id, $product->title, 1,$product->price,$product->product_size, ['productImage' => (!empty($product->product_image)) ? $product->product_image->first() : '']);
-
-                $status = true;
-                $message = '<strong>' . $product->title . '</strong> Added in Your Cart Successfully.';
-                session()->flash('success', $message);
-            } else {
-                $status = false;
-                $message = $product->title . ' Already Added in Cart';
-                session()->flash('error', $message);
-            }
-        } else {
-            Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_image)) ? $product->product_image->first() : '']);
-            $status = true;
-            $message = '<strong>' . $product->title . '</strong> Added in Your Cart Successfully.';
-            session()->flash('success', $message);
-        }
-        return response()->json([
-            'status' => $status,
-            'message' => $message,
-        ]);
+        //$getproduct = Product::findOrFail($request->product_id);
+        //$total = $getproduct->price;
+    
+        //dd($total);
         //Cart::add('293ad', 'Product 1', 1, 9.99);
+        $product = Product::findOrFail($id);
+
+        Cart::add([
+           'id' => $id,
+                'name' => $request->product_name,
+                'qty' => $request->quantity,
+                'price' => $product->price,
+                'weight' => 1,
+                'options' =>[
+                
+                    'color' => $request->color,
+                    'size' => $request->size,
+                   
+                ],
+        ]);
+        
+        return response()->json(['success' => 'SuccessFully Added on your cart']);
     }
 
 
     public function cart()
     {
         $cartContent = Cart::content();
-
+        //dd($cartContent);
         session(['url.intended' => url()->previous()]);
 
         return view('front.cart', compact('cartContent'));

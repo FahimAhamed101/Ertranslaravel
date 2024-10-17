@@ -42,13 +42,13 @@
                                                     <img src="{{ asset('uploads/product/large/' . $item->options->productImage->image) }}" width="130" alt="">
                                                     @else
                                                     <img src="{{ asset('admin-assets/img/no-image.png') }}"
-                                                        width="" height="">
+                                                        width="50px" height="50px">
                                                 @endif
                                                 </div>
                                                 <div class="cart-detail text-center text-lg-start">
-                                                    <h6 class="mb-2">{{ $item->name }}{{ $item->product_size }}</h6>
+                                                    <h6 class="mb-2">{{ $item->name }}</h6>
                                                     <h5 class="mb-0">$    {{ $item->price }}</h5>
-                                                    <p class="mb-0">Size: <span>Regular</span>
+                                                    <p class="mb-0">Size: <span>{value.options.color}</span>
                                                     </p>
                                                     <p class="mb-2">Color: <span>White & Blue</span>
                                                     </p>
@@ -56,6 +56,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <button class="btn btn-sm btn-danger"
+                                        onclick="deleteItem('{{ $item->rowId }}')"><i
+                                            class="fa fa-times"></i></button>
                                         <div class="col-12 col-lg-3">
                                            
                                             <div class="cart-action    text-center">

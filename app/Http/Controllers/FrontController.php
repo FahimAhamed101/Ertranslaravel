@@ -17,23 +17,23 @@ class FrontController extends Controller
     public function index()
     {
 
-        $cartContent = Cart::content();
+       
 
         session(['url.intended' => url()->previous()]);
         $featuredProducts = Product::where('is_featured','Yes')->orderBy('id','DESC')->where('status',1)->take(4)->get();
         $latestProducts = Product::orderBy('id','DESC')->where('status',1)->take(8)->get();
-        return view('front.home',compact('featuredProducts','latestProducts','cartContent'));
+        return view('front.home',compact('featuredProducts','latestProducts'));
     }
 
     public function layout()
     {
 
-        $cartContent = Cart::content();
+       
 
         session(['url.intended' => url()->previous()]);
         $featuredProducts = Product::where('is_featured','Yes')->orderBy('id','DESC')->where('status',1)->take(4)->get();
         $latestProducts = Product::orderBy('id','DESC')->where('status',1)->take(8)->get();
-        return view('front.layouts.app',compact('featuredProducts','latestProducts','cartContent'));
+        return view('front.layouts.app',compact('featuredProducts','latestProducts'));
     }
     public function addToWishList(Request $request){
         if (Auth::check() == false){

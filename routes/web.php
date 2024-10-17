@@ -16,6 +16,8 @@ use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\UserController;
 
+use App\Http\Controllers\admin\BannerController;
+
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
@@ -31,22 +33,36 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+
+
+
+// Home Routes
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/shop/{categorySlug?}/{subCategoryslug?}',[ShopController::class,'index'])->name('front.shop');
 Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
 Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
-Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.cartToCart');
+Route::post('/add-to-cart/{id}',[CartController::class,'addToCart'])->name('front.cartToCart');
 Route::post('/update-cart',[CartController::class,'updateCart'])->name('front.updateCart');
 Route::post('/delete-cart',[CartController::class,'deleteItem'])->name('front.deleteProduct.cart');
-Route::post('/add-to-wishlist',[FrontController::class,'addToWishList'])->name('fornt.addToWishList');
-Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('fornt.forgotPassword');
-
 Route::get('/checkout',[CartController::class,'checkout'])->name('fornt.checkout');
 Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('fornt.processcheckout');
+Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thanks');
 Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->name('fornt.getOrderSummery');
 Route::post('/apply-discount',[CartController::class,'applyDiscount'])->name('fornt.applyDiscount');
 Route::post('/remove-discount',[CartController::class,'removeCoupon'])->name('fornt.removeCoupon');
-Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thanks');
+Route::post('/add-to-wishlist',[FrontController::class,'addToWishList'])->name('fornt.addToWishList');
+Route::get('/page/{slug}',[FrontController::class,'page'])->name('fornt.page');
+
+//rating routes
+Route::post('save-rating/{productId}', [ProductRatingController::class,'saveRating'])->name('fornt.saveRating');
+
+//forgotpassword routes
+Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('fornt.forgotPassword');
+Route::post('/process-forgot-password',[AuthController::class,'processForgotPassword'])->name('fornt.processForgotPassword');
+Route::get('/reset-password/{token}',[AuthController::class,'resetPassword'])->name('fornt.resetPassword');
+Route::post('/process-reset-password',[AuthController::class,'processResetPassword'])->name('fornt.processResetPassword');
+
+
 Route::group(['prefix' => 'account'], function () {
 
     Route::group(['middleware' => 'guest'], function () {
@@ -79,7 +95,19 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/authenticate', [AdminLoginController::class, 'authenticate'])->name('admin.authenticate');
     });
 
+
+      
+
     Route::group(['middleware' => 'admin.auth'], function () {
+ // ------------------------------ Admin Banner Page ----------------------------------
+ Route::get('banner', [BannerController::class, 'index'])->name('banner');
+ Route::get('banner/add', [BannerController::class, 'add'])->name('banner.add');
+ Route::post('banner/store', [BannerController::class, 'Store'])->name('banner.store');
+ Route::get('banner/edit/{id}', [BannerController::class, 'Edit'])->name('banner.edit');
+ Route::post('banner/update/{id}', [BannerController::class, 'Update'])->name('banner.update');
+ Route::get('banner/delete/{id}', [BannerController::class, 'Delete'])->name('banner.delete');
+
+
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/logout', [DashboardController::class, 'logout'])->name('admin.logout');
         Route::get('/change-password',[SettingController::class,'showChangePasswordForm'])->name('admin.showChangePasswordForm');
