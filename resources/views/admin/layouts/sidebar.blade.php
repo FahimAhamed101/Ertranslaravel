@@ -82,6 +82,12 @@
 									<p>Pages</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{ route('banner') }}" class="nav-link">
+									<i class="nav-icon  far fa-file-alt"></i>
+									<p>banner</p>
+								</a>
+							</li>
 						</ul>
 					</nav>
 					<!-- /.sidebar-menu -->

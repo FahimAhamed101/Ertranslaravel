@@ -459,54 +459,30 @@
 						<li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
 					</ol>
 					<div class="carousel-inner">
-						<div class="carousel-item active">
+						@php
+    $banner = App\Models\Banner::orderBy('banner_title','ASC')->limit(3)->get();
+@endphp
+
+
+					
+@foreach ($banner as $banner)
+						<div class="carousel-item {{ $loop->first ? 'active' : '' }}">
 							<div class="row d-flex align-items-center">
 								<div class="col d-none d-lg-flex justify-content-center">
 									<div class="">
-										<h3 class="h3 fw-light">Has just arrived!</h3>
-										<h1 class="h1">Huge Summer Collection</h1>
-										<p class="pb-3">Swimwear, Tops, Shorts, Sunglasses &amp; much more...</p>
-										<div class=""> <a class="btn btn-light btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
+										<h3 class="h3 fw-light">  {{ $banner->banner_title }}</h3>
+									<!--start slider section	<h1 class="h1">Women Sportswear Sale</h1>
+										<p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...</p>-->
+										<div class=""> <a class="btn btn-white btn-ecomm" href="{{ $banner->banner_url }}">Shop Now <i class='bx bx-chevron-right'></i></a>
 										</div>
 									</div>
 								</div>
 								<div class="col">
-									<img src="assets/images/slider/04.png" class="img-fluid" alt="...">
+									<img src="{{ asset($banner->banner_image) }}" class="img-fluid" alt="...">
 								</div>
 							</div>
 						</div>
-						<div class="carousel-item">
-							<div class="row d-flex align-items-center">
-								<div class="col d-none d-lg-flex justify-content-center">
-									<div class="">
-										<h3 class="h3 fw-light">Hurry up! Limited time offer.</h3>
-										<h1 class="h1">Women Sportswear Sale</h1>
-										<p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...</p>
-										<div class=""> <a class="btn btn-white btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<img src="assets/images/slider/05.png" class="img-fluid" alt="...">
-								</div>
-							</div>
-						</div>
-						<div class="carousel-item">
-							<div class="row d-flex align-items-center">
-								<div class="col d-none d-lg-flex justify-content-center">
-									<div class="">
-										<h3 class="h3 fw-light">Complete your look with</h3>
-										<h1 class="h1">New Men's Accessories</h1>
-										<p class="pb-3">Hats &amp; Caps, Sunglasses, Bags &amp; much more...</p>
-										<div class=""> <a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<img src="assets/images/slider/03.png" class="img-fluid" alt="...">
-								</div>
-							</div>
-						</div>
+						@endforeach
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Previous</span>

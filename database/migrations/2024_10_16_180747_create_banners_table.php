@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('banner_url');
             $table->string('banner_image');
             $table->timestamps();
+            $table->integer('featured')->nullable();
         });
     }
 
