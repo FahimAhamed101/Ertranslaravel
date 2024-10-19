@@ -171,22 +171,47 @@ class AuthController extends Controller
     }
 
 
-    public function order(){
+    public function orders() {
+        $data = [];
         $user = Auth::user();
-        $orders = Order::where('user_id',$user->id)->orderBy('created_at','DESC')->get();
-        return view('front.account.order',compact('orders'));
+        $orders = Order::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $data['orders'] = $orders;
+        return view('front.account.order', $data);
     }
 
 
-    public function orderDetail($id){
+    public function orderDetail($id) {
+        // echo $id;
+        $data = [];
         $user = Auth::user();
-        $order = Order::where('user_id',$user->id)->where('id',$id)->first();
+        $order = Order::where('user_id', $user->id)->where('id', $id)->first();
+        // dd($order);
+        // if ($order->id == null) {
+            //     return view('front.account.order');
+            // }
+            $orderItems = OrderItem::where('order_id', $id)->get();
+            $data['order'] = $order;
+            $data['orderItems'] = $orderItems;
+            $orderItemsCount = OrderItem::where('order_id', $id)->count();
+            $data['orderItemsCount'] = $orderItemsCount;
+            $product = [];
+            foreach ($orderItems as $orderItem) {
+                // Assuming 'product_id' is the column in the OrderItem model referencing the product
+                $productId = $orderItem->product_id;
 
-        $orderItems = OrderItem::where('order_id',$id)->get();
-        $product = Product::all();
+                // Fetch product details based on the product_id
+                $product = Product::find($productId);
 
-        return view('front.account.order-detail',compact('order','orderItems','product'));
+                // Add product details to an array (or perform further operations)
+                // if ($product) {
+                //     $product[] = $product;
+                // }
+            }
+            $data['product'] = $product;
+            // dd($data);
+            return view('front.account.order-details', $data);
     }
+    
 
 
 

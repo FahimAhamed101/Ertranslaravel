@@ -65,27 +65,30 @@ Route::post('/process-reset-password',[AuthController::class,'processResetPasswo
 
 Route::group(['prefix' => 'account'], function () {
 
-    Route::group(['middleware' => 'guest'], function () {
-        Route::get('/register',[AuthController::class,'register'])->name('account.register');
-        Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.process.register');
-        Route::get('/login',[AuthController::class,'login'])->name('account.login');
-        Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
-        Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
+    Route::group(['middleware' => 'guest'], function (){
+
+        Route::get('/register', [AuthController::class, 'register'])->name('account.register');
+        Route::get('/login', [AuthController::class, 'login'])->name('account.login');
+        Route::post('/login', [AuthController::class, 'authenticate'])->name('account.authenticate');
+        Route::post('/process-register', [AuthController::class, 'processRegister'])->name('account.processRegister');
+        
+    });
+
+    Route::group(['middleware' => 'auth'], function (){
+
+        Route::get('/profile', [AuthController::class, 'profile'])->name('account.profile');
+        Route::post('/update-profile', [AuthController::class, 'updateProfile'])->name('account.updateProfile');
+        Route::post('/update-address', [AuthController::class, 'updateAddress'])->name('account.updateAddress');
+        Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])->name('account.showChangePasswordForm');
+        Route::post('/process-change-password', [AuthController::class, 'changePassword'])->name('account.changePassword');
+        Route::get('/my-orders', [AuthController::class, 'orders'])->name('account.orders');
+        Route::get('/my-wishlist', [AuthController::class, 'wishlist'])->name('account.wishlist');
+        Route::post('/remove-product-from-wishlist', [AuthController::class, 'removeProductFromWishlist'])->name('account.removeProductFromWishlist');
+        Route::get('/order-details/{orderId}', [AuthController::class, 'orderDetail'])->name('account.orderDetail');
+        Route::get('/logout', [AuthController::class, 'logout'])->name('account.logout');
 
     });
 
-    Route::group(['middleware' => 'auth'], function () {
-        Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
-        Route::post('/update-profile',[AuthController::class,'updateProfile'])->name('account.updateProfile');
-        Route::post('/update-address',[AuthController::class,'updateAddress'])->name('account.updateAddress');
-        Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
-        Route::get('/my-orders',[AuthController::class,'order'])->name('account.order');
-        Route::get('/wishlist',[AuthController::class,'wishlist'])->name('account.wishlist');
-        Route::post('/remove-product-from-wishlist',[AuthController::class,'removeProductfromWishlist'])->name('account.removeProductfromWishlist');
-        Route::get('/order-detail/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
-        Route::get('/change-password',[AuthController::class,'changePasswordPage'])->name('account.changePassword');
-        Route::post('/process-change-password',[AuthController::class,'changePassword'])->name('account.processChangePassword');
-    });
 });
 Route::group(['prefix' => 'admin'], function () {
 
