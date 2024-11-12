@@ -136,15 +136,13 @@
                                 </a>
                                 <div class="card-body">
                                     <div class="product-info">
+                                     
                                         <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
+                                            <h6 class="product-name mb-2">{{ $featuredProduct->title }}</h6>
                                         </a>
                                         <div class="d-flex align-items-center">
-                                            <div class="mb-1 product-price">	<span class="me-1 text-decoration-line-through">$99.00</span>
-                                                <span class="text-white fs-5">$49.00</span>
+                                            <div class="mb-1 product-price">
+                                                <span class="text-white fs-5">${{ $featuredProduct->price }}</span>
                                             </div>
                                             <div class="cursor-pointer ms-auto">	<i class="bx bxs-star text-white"></i>
                                                 <i class="bx bxs-star text-white"></i>
@@ -155,7 +153,7 @@
                                         </div>
                                         <div class="product-action mt-2">
                                             <div class="d-grid gap-2">
-                                                <a href="{{ route('front.product', $featuredProduct->slug) }}" class="btn btn-light btn-ecomm">	<i class='bx bxs-cart-add'></i>Add to Cart</a>	<a href="{{ route('front.product', $featuredProduct->slug) }}" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
+                                                <a href="{{ route('front.product', $featuredProduct->slug) }}" class="btn btn-light btn-ecomm">	<i class='bx bxs-cart-add'></i>Add to Cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +170,7 @@
         <!--end Featured product-->
         <!--start New Arrivals-->
         @if (count($latestProducts) > 0)
-        <section class="py-4">
+         /* <section class="py-4">
             <div class="container">
                 <div class="d-flex align-items-center">
                     <h5 class="text-uppercase mb-0">New Arrivals</h5>
@@ -211,11 +209,9 @@
                                 </a>
                                 <div class="card-body">
                                     <div class="product-info">
+  =
                                         <a href="javascript:;">
-                                            <p class="product-catergory font-13 mb-1">Catergory Name</p>
-                                        </a>
-                                        <a href="javascript:;">
-                                            <h6 class="product-name mb-2">Product Short Name</h6>
+                                            <h6 class="product-name mb-2">{{ $featuredProduct->title }}</h6>
                                         </a>
                                         <div class="d-flex align-items-center">
                                             <div class="mb-1 product-price">    @if ($latestProduct->compare_price > 0) <span class="me-1 text-decoration-line-through">${{ $latestProduct->compare_price }}</span>  @endif
@@ -226,7 +222,7 @@
                                         </div>
                                         <div class="product-action mt-2">
                                             <div class="d-grid gap-2">
-                                                <a href="javascript:;" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> <a href="javascript:;" class="btn btn-link btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class='bx bx-zoom-in'></i>Quick View</a>
+                                                <a href="{{ route('front.product', $latestProduct->slug) }}" class="btn btn-light btn-ecomm"> <i class='bx bxs-cart-add'></i>Add to Cart</a> 
                                             </div>
                                         </div>
                                     </div>
@@ -239,8 +235,8 @@
                     </div>
                 </div>
             </div>
-        </section>
-        @endif
+        </section>*/
+        @endif  
         <!--end New Arrivals-->
         <!--start Advertise banners-->
         <section class="py-4">

@@ -38,7 +38,7 @@
                                             <div class="d-lg-flex align-items-center gap-2">
                                               
                                                 <div class="cart-img text-center text-lg-start">
-  @if (!empty($item->options->productImage->image))
+                                        @if (!empty($item->options->productImage->image))
                                                     <img src="{{ asset('uploads/product/large/' . $item->options->productImage->image) }}" width="130" alt="">
                                                     @else
                                                     <img src="{{ asset('admin-assets/img/no-image.png') }}"
@@ -48,7 +48,7 @@
                                                 <div class="cart-detail text-center text-lg-start">
                                                     <h6 class="mb-2">{{ $item->name }}</h6>
                                                     <h5 class="mb-0">$    {{ $item->price }}</h5>
-                                                    <p class="mb-0">Size: <span>{value.options.color}</span>
+                                                    <p class="mb-0">Size: <span>{{$item->options->productImage->image}}</span>
                                                     </p>
                                                     <p class="mb-2">Color: <span>White & Blue</span>
                                                     </p>

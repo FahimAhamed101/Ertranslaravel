@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Session;
 
 use App\Models\Address;
 use App\Models\Country;
@@ -24,23 +25,29 @@ class CartController extends Controller
     
         //dd($total);
         //Cart::add('293ad', 'Product 1', 1, 9.99);
-        $product = Product::findOrFail($id);
-
+        
+        $product = Product::with('product_image')->find($request->id);
         Cart::add([
            'id' => $id,
                 'name' => $request->product_name,
                 'qty' => $request->quantity,
                 'price' => $product->price,
-                'weight' => 1,
-                'options' =>[
+               
                 
+                'options' =>[
+                'productImage' => (!empty($product->product_image)) ? $product->product_image->first() : '',
                     'color' => $request->color,
                     'size' => $request->size,
                    
                 ],
         ]);
-        
-        return response()->json(['success' => 'SuccessFully Added on your cart']);
+        $message = "Cart Updated SuccessFully.";
+        $status = true;
+        session()->flash('success', $message);
+        return response()->json([
+            'status' => true,
+            'message' => 'Product added Cart Successfully.',
+        ]);
     }
 
 
