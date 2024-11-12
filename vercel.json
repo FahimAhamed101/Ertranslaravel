@@ -11,15 +11,15 @@
             "dest": "/public/media/"
         },
         {
-            "src": "/frontend/assets/css/(.*)",
-            "dest": "/public/frontend/assets/css/"
+            "src": "assets/css/(.*)",
+            "dest": "/public/assets/css/"
         },
         {
             "src": "/frontend/assets/js/(.*)",
             "dest": "/public/frontend/assets/js/"
         },
         {
-            "src": "/frontend/(.*)",
+            "src": "/(.*)",
             "dest": "/public/"
         },
         {
