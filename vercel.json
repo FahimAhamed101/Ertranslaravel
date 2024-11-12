@@ -15,8 +15,8 @@
             "dest": "/public/assets/css/"
         },
         {
-            "src": "/frontend/assets/js/(.*)",
-            "dest": "/public/frontend/assets/js/"
+            "src": "/assets/(.*)",
+            "dest": "/public/assets/"
         },
         {
             "src": "/assets/js/(.*)",
