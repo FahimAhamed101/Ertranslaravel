@@ -11,7 +11,7 @@
             "dest": "/public/media/"
         },
         {
-            "src": "assets/css/(.*)",
+            "src": "/assets/css/(.*)",
             "dest": "/public/assets/css/"
         },
         {
@@ -23,12 +23,12 @@
             "dest": "/public/"
         },
         {
-            "src": "/js/(.*)",
-            "dest": "/public/js/"
+            "src": "/assets/js/(.*)",
+            "dest": "/public/assets//js/"
         },
         {
-            "src": "/css/(.*)",
-            "dest": "/public/css/"
+            "src": "/assets/css/(.*)",
+            "dest": "/public/assets/css/"
         },
         {
             "src": "/(.*)",
